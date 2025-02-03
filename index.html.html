@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Love Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ffcccc, #ffe6e6);
+            overflow: hidden;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #e60000;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: float 5s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-800px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Love Percentage Calculator ❤️</h1>
+    <input type="text" id="name1" placeholder="BOY"><br>
+    <input type="text" id="name2" placeholder="GIRL"><br>
+    <button onclick="calculateLove()">Calculate Love %</button>
+
+    <div id="result"></div>
+
+    <script>
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+            }
+        }
+
+        function calculateLove() {
+            var name1 = document.getElementById('name1').value.toLowerCase();
+            var name2 = document.getElementById('name2').value.toLowerCase();
+
+            if (name1 === '' || name2 === '') {
+                alert('Please enter both names!');
+                return;
+            }
+
+            if (name1 === 'sutap') {
+                document.getElementById('result').innerHTML = "ERROR 69: Sutap can't have a girlfriend. It's impossible. Please try again with different names.";
+                return;
+            }
+
+            if (name1 === 'chahana' && name2 !== '') {
+                document.getElementById('result').innerHTML = "Be Aware! Chahana has many boyfriends. She might be a gold digger.";
+                return;
+            }
+
+            if (name2 === 'chahana' && name1 !== '') {
+                document.getElementById('result').innerHTML = "Be Aware! Chahana has many boyfriends. She might be a gold digger.";
+                return;
+            }
+
+            if (name1 === 'chahana' || name2 === 'chahana') {
+                document.getElementById('result').innerHTML = "ERROR 404: Your love is incomprehensible for me to say.";
+                return;
+            }
+
+            var key = name1 + '_' + name2;
+            var storedPercentage = localStorage.getItem(key);
+
+            var lovePercentage;
+            if (storedPercentage) {
+                lovePercentage = storedPercentage;
+            } else {
+                lovePercentage = Math.floor(Math.random() * 101);
+                localStorage.setItem(key, lovePercentage);
+            }
+
+            document.getElementById('result').innerHTML = 
+                name1.charAt(0).toUpperCase() + name1.slice(1) + " ❤️ " + 
+                name2.charAt(0).toUpperCase() + name2.slice(1) + " = " + lovePercentage + "% Love Chances";
+        }
+
+        createHearts();
+    </script>
+</body>
+</html>
